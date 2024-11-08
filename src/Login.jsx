@@ -1,11 +1,12 @@
-// src/components/Login.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [correo, setCorreo] = useState('');
   const [clave, setClave] = useState('');
   const [mensaje, setMensaje] = useState('');
+  const navigate = useNavigate(); // Hook para redirigir
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,8 +18,9 @@ function Login() {
       });
 
       if (response.data.success) {
-        setMensaje('Login exitoso');
-        // Redirigir o realizar alguna acción en caso de éxito
+        setMensaje('Inicio de Sesión Correcta');
+        // Redirige al menú con el dashboard
+        navigate('/Menu');
       } else {
         setMensaje('Credenciales inválidas');
       }
