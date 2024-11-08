@@ -15,7 +15,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   port: '3306',
   user: 'root',
-  password: 'BOCALOMASGRANDE12-7',
+  password: 'Sqlgero45123.',
   database: 'sistemaVentas'
 });
 
@@ -49,4 +49,18 @@ app.post('/api/login', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});
+
+// Endpoint para agregar un nuevo proveedor
+app.post('/api/proveedores', (req, res) => {
+  const { Documento, RazonSocial, telefono, correo } = req.body;
+
+  const query = 'INSERT INTO Proveedores (Documento, RazonSocial, telefono, correo) VALUES (?, ?, ?, ?)';
+  db.query(query, [Documento, RazonSocial, telefono, correo], (err, result) => {
+    if (err) {
+      console.error('Error al agregar el proveedor:', err);
+      return res.status(500).json({ success: false, message: 'Error en el servidor' });
+    }
+    res.json({ success: true, message: 'Proveedor agregado correctamente' });
+  });
 });
